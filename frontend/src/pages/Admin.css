@@ -1,0 +1,126 @@
+.admin-auth-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+}
+
+.admin-auth-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+.admin-header {
+  margin-bottom: 2rem;
+}
+
+.admin-header h2 {
+  font-size: 2rem;
+  margin: 10px 0;
+  color: var(--text-main);
+}
+
+.admin-input:focus {
+  border-color: var(--danger) !important;
+  box-shadow: 0 0 0 3px rgba(226, 114, 91, 0.1) !important;
+}
+
+.text-danger {
+  color: var(--danger);
+}
+
+/* Dashboard Specifics */
+.admin-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.admin-nav {
+  border-bottom: 3px solid var(--danger);
+}
+
+.admin-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.metric-card {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem;
+}
+
+.metric-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.users-icon { background: #4F46E5; }
+.vault-icon { background: var(--success); }
+.tx-icon { background: var(--danger); }
+
+.metric-data p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.metric-data h3 {
+  font-size: 1.8rem;
+  color: var(--text-main);
+}
+
+.admin-main-panel {
+  padding: 2rem;
+}
+
+.admin-tabs {
+  display: flex;
+  gap: 1rem;
+  border-bottom: 2px solid var(--border-light);
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+}
+
+.admin-tab {
+  background: transparent;
+  border: none;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: all 0.2s;
+  font-family: 'Syne', sans-serif;
+}
+
+.admin-tab:hover {
+  background: #FAFAFA;
+}
+
+.admin-tab.active {
+  color: var(--text-main);
+  background: #E5E0D8;
+}
+
+.admin-table th {
+  font-family: 'Syne', sans-serif;
+}
+
+.font-mono {
+  font-family: monospace;
+  color: var(--text-muted);
+}

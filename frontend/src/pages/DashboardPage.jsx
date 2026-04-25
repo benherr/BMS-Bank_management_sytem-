@@ -37,7 +37,7 @@ const DashboardPage = ({ user, onLogout }) => {
           <span className="text-gradient font-bold">Nexus</span>
         </div>
         <div className="nav-user">
-          <span>Welcome back, {user.customername.split(' ')[0]}!</span>
+          <span>Welcome back, {user.customername ? user.customername.split(' ')[0] : 'User'}!</span>
           <button onClick={onLogout} className="btn-icon"><LogOut size={20}/></button>
         </div>
       </nav>
@@ -93,17 +93,17 @@ const DashboardPage = ({ user, onLogout }) => {
                   <tr><td colSpan="4" className="text-center text-muted">No transactions yet.</td></tr>
                 ) : (
                   statement.map(tx => (
-                    <tr key={tx.transactionId}>
-                      <td>{new Date(tx.transactiondate_time).toLocaleString()}</td>
+                    <tr key={tx.transactionid}>
+                      <td>{tx.transactiondate} {tx.transactiontime}</td>
                       <td>
-                        <span className={`tx-badge ${tx.transactiontype.toLowerCase()}`}>
+                        <span className={`tx-badge ${tx.transactiontype ? tx.transactiontype.toLowerCase() : ''}`}>
                           {tx.transactiontype}
                         </span>
                       </td>
                       <td className={tx.transactiontype === 'Credit' ? 'text-success' : 'text-danger'}>
-                        {tx.transactiontype === 'Credit' ? '+' : '-'}${tx.transactionAmount.toFixed(2)}
+                        {tx.transactiontype === 'Credit' ? '+' : '-'}${tx.transactionamount ? tx.transactionamount.toFixed(2) : '0.00'}
                       </td>
-                      <td>${tx.total_Balance.toFixed(2)}</td>
+                      <td>${tx.balanceamount ? tx.balanceamount.toFixed(2) : '0.00'}</td>
                     </tr>
                   ))
                 )}
