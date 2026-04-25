@@ -1,18 +1,25 @@
 import React, { useState } from 'react';
+import { adminApi } from '../api/adminApi';
 import { Lock, ShieldAlert } from 'lucide-react';
 import './Admin.css';
 
 const AdminAuthPage = ({ onAdminLogin }) => {
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const [pin, setPin] = useState('');
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    // Hardcoded simple admin check for MVP
-    if (password === 'admin123') {
+    setLoading(true);
+    setError('');
+    try {
+      await adminApi.login(email, pin);
       onAdminLogin(true);
-    } else {
-      setError('Invalid Administrator Credentials');
+    } catch (err) {
+      setError(err.response?.data || 'Invalid Administrator Credentials');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -29,18 +36,29 @@ const AdminAuthPage = ({ onAdminLogin }) => {
 
         <form onSubmit={handleLogin} className="auth-form">
           <div className="input-group">
-            <label>Master Password</label>
+            <label>Admin Email</label>
             <input 
-              type="password" 
+              type="email" 
               className="glass-input admin-input" 
               required 
-              value={password} 
-              onChange={(e) => setPassword(e.target.value)} 
+              value={email} 
+              onChange={(e) => setEmail(e.target.value)} 
               autoFocus
             />
           </div>
-          <button type="submit" className="btn btn-danger w-100">
-            <Lock size={20} /> Authorize
+          <div className="input-group">
+            <label>Admin PIN</label>
+            <input 
+              type="password" 
+              maxLength="4"
+              className="glass-input admin-input" 
+              required 
+              value={pin} 
+              onChange={(e) => setPin(e.target.value)} 
+            />
+          </div>
+          <button type="submit" className="btn btn-danger w-100" disabled={loading}>
+            <Lock size={20} /> {loading ? 'Authorizing...' : 'Authorize'}
           </button>
         </form>
       </div>

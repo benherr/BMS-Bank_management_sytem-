@@ -56,14 +56,14 @@ const AdminDashboardPage = ({ onAdminLogout }) => {
           <div className="metric-icon vault-icon"><Database size={24}/></div>
           <div className="metric-data">
             <p>Total Bank Assets</p>
-            <h3>${totalBankBalance.toFixed(2)}</h3>
+            <h3>₹{totalBankBalance.toFixed(2)}</h3>
           </div>
         </div>
         <div className="glass-panel metric-card">
           <div className="metric-icon tx-icon"><Activity size={24}/></div>
           <div className="metric-data">
             <p>Global Tx Volume</p>
-            <h3>${totalTxVolume.toFixed(2)}</h3>
+            <h3>₹{totalTxVolume.toFixed(2)}</h3>
           </div>
         </div>
       </div>
@@ -95,7 +95,7 @@ const AdminDashboardPage = ({ onAdminLogout }) => {
                     <td><strong>{c.customername}</strong></td>
                     <td>{c.customeremailid}</td>
                     <td>{c.mobilenumber}</td>
-                    <td className="text-success font-bold">${(c.amount || 0).toFixed(2)}</td>
+                    <td className="text-success font-bold">₹{(c.amount || 0).toFixed(2)}</td>
                   </tr>
                 ))}
               </tbody>
@@ -121,7 +121,7 @@ const AdminDashboardPage = ({ onAdminLogout }) => {
                     <td className="font-mono">{tx.accountnumber}</td>
                     <td><span className={`tx-badge ${tx.transactiontype ? tx.transactiontype.toLowerCase() : ''}`}>{tx.transactiontype}</span></td>
                     <td className={tx.transactiontype === 'Credit' ? 'text-success' : 'text-danger'}>
-                      ${(tx.transactionamount || 0).toFixed(2)}
+                      ₹{(tx.transactionamount || 0).toFixed(2)}
                     </td>
                   </tr>
                 ))}

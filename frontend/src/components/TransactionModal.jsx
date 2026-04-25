@@ -45,7 +45,7 @@ const TransactionModal = ({ type, onClose, accountNumber, onSuccess }) => {
 
         <form onSubmit={handleSubmit} className="modal-form">
           <div className="input-group">
-            <label>Amount ($)</label>
+            <label>Amount (₹)</label>
             <input 
               type="number" 
               step="0.01" 

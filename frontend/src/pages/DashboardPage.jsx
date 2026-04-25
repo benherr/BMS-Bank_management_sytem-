@@ -52,7 +52,7 @@ const DashboardPage = ({ user, onLogout }) => {
             </button>
           </div>
           <h1 className="balance-amount text-gradient">
-            ${balance.toFixed(2)}
+            ₹{balance.toFixed(2)}
           </h1>
           <p className="account-number">Account: ****{String(user.accountnumber).slice(-4)}</p>
 
@@ -101,9 +101,9 @@ const DashboardPage = ({ user, onLogout }) => {
                         </span>
                       </td>
                       <td className={tx.transactiontype === 'Credit' ? 'text-success' : 'text-danger'}>
-                        {tx.transactiontype === 'Credit' ? '+' : '-'}${tx.transactionamount ? tx.transactionamount.toFixed(2) : '0.00'}
+                        {tx.transactiontype === 'Credit' ? '+' : '-'}₹{tx.transactionamount ? tx.transactionamount.toFixed(2) : '0.00'}
                       </td>
-                      <td>${tx.balanceamount ? tx.balanceamount.toFixed(2) : '0.00'}</td>
+                      <td>₹{tx.balanceamount ? tx.balanceamount.toFixed(2) : '0.00'}</td>
                     </tr>
                   ))
                 )}
