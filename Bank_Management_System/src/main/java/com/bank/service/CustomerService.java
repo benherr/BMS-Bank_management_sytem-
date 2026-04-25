@@ -34,9 +34,21 @@ public class CustomerService {
         }
         
         customerDetails.setAccountnumber(generateAccountNumber());
-        customerDetails.setPin(1234);
+        // Generate secure random 4-digit PIN (1000-9999)
+        customerDetails.setPin(1000 + new Random().nextInt(9000));
         
-        return customerRepository.save(customerDetails);
+        // Handle opening deposit safely to generate transaction ledger record
+        double initialAmount = customerDetails.getAmount();
+        customerDetails.setAmount(0.0);
+        
+        CustomerDetails savedCustomer = customerRepository.save(customerDetails);
+        
+        if (initialAmount > 0) {
+            creditAmount(savedCustomer.getAccountnumber(), initialAmount);
+            savedCustomer.setAmount(initialAmount);
+        }
+        
+        return savedCustomer;
     }
 
     public CustomerDetails loginCustomer(String email, int pin) {

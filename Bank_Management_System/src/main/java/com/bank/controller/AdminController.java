@@ -49,6 +49,10 @@ public class AdminController {
         CustomerDetails newCustomer = customerService.registerCustomer(
             new CustomerDetails(0, name, email, aadhar, pan, mobile, address, gender, java.sql.Date.valueOf(dob), age, 0.0, 0, 0)
         );
+        // Force test PIN for seeded users
+        newCustomer.setPin(1234);
+        customerRepository.save(newCustomer);
+        
         customerService.creditAmount(newCustomer.getAccountnumber(), initialDeposit);
     }
 

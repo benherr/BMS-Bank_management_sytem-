@@ -92,3 +92,33 @@
   padding: 14px;
   font-size: 1.1rem;
 }
+
+.success-card {
+  text-align: center;
+  padding: 1rem 0;
+  animation: fadeIn 0.4s ease;
+}
+
+.credentials-box {
+  background: #F4F1EA;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-top: 1rem;
+}
+
+.cred-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.cred-row:last-child {
+  border-bottom: none;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
