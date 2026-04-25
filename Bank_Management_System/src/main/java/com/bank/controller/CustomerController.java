@@ -50,13 +50,13 @@ public class CustomerController {
     }
 
     @PostMapping("/{accountNumber}/credit")
-    public ResponseEntity<?> creditAmount(@PathVariable int accountNumber, @RequestParam double amount) {
-        try {
-            TransactionDetails transaction = customerService.creditAmount(accountNumber, amount);
-            return new ResponseEntity<>(transaction, HttpStatus.OK);
-        } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<?> creditAmount(@PathVariable Integer accountNumber, @RequestParam Double amount) {
+        return ResponseEntity.ok(customerService.creditAmount(accountNumber, amount));
+    }
+
+    @PostMapping("/{accountNumber}/transfer")
+    public ResponseEntity<?> transferAmount(@PathVariable Integer accountNumber, @RequestParam Integer toAccount, @RequestParam Double amount) {
+        return ResponseEntity.ok(customerService.transferAmount(accountNumber, toAccount, amount));
     }
 
     @GetMapping("/{accountNumber}/balance")

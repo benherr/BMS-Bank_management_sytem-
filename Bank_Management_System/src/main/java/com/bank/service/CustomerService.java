@@ -106,6 +106,63 @@ public class CustomerService {
         }
     }
 
+    @Transactional
+    public List<TransactionDetails> transferAmount(int fromAccount, int toAccount, double amount) {
+        if (fromAccount == toAccount) {
+            throw new IllegalArgumentException("Cannot transfer to the same account");
+        }
+        
+        Optional<CustomerDetails> senderOpt = customerRepository.findByAccountnumber(fromAccount);
+        Optional<CustomerDetails> receiverOpt = customerRepository.findByAccountnumber(toAccount);
+        
+        if (senderOpt.isPresent() && receiverOpt.isPresent()) {
+            CustomerDetails sender = senderOpt.get();
+            CustomerDetails receiver = receiverOpt.get();
+            
+            if (amount <= sender.getAmount()) {
+                double senderNewBalance = sender.getAmount() - amount;
+                double receiverNewBalance = receiver.getAmount() + amount;
+                
+                sender.setAmount(senderNewBalance);
+                receiver.setAmount(receiverNewBalance);
+                
+                customerRepository.save(sender);
+                customerRepository.save(receiver);
+                
+                // Record 1: Debit from Sender
+                TransactionDetails senderTx = new TransactionDetails(
+                        LocalDate.now(),
+                        LocalTime.now(),
+                        amount,
+                        senderNewBalance,
+                        fromAccount,
+                        toAccount,
+                        "Transfer Out"
+                );
+                
+                // Record 2: Credit to Receiver
+                TransactionDetails receiverTx = new TransactionDetails(
+                        LocalDate.now(),
+                        LocalTime.now(),
+                        amount,
+                        receiverNewBalance,
+                        toAccount,
+                        fromAccount,
+                        "Transfer In"
+                );
+                
+                transactionRepository.save(receiverTx);
+                transactionRepository.save(senderTx);
+                
+                return List.of(senderTx, receiverTx);
+            } else {
+                throw new IllegalArgumentException("Insufficient amount for transfer");
+            }
+        } else {
+            throw new IllegalArgumentException("Invalid Sender or Receiver account number");
+        }
+    }
+
     public double getBalance(int accountNumber) {
         Optional<CustomerDetails> customerOpt = customerRepository.findByAccountnumber(accountNumber);
         if (customerOpt.isPresent()) {

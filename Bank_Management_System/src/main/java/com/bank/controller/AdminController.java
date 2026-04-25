@@ -28,7 +28,7 @@ public class AdminController {
     private AdminRepository adminRepository;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestParam String email, @RequestParam Integer pin) {
+    public ResponseEntity<?> login(@RequestParam String email, @RequestParam String pin) {
         AdminDetails admin = adminRepository.findByAdminEmailidAndAdminPin(email, pin);
         if (admin != null) {
             return ResponseEntity.ok(admin);

@@ -6,7 +6,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Column;
 
 @Entity
-@Table(name = "admin")
+@Table(name = "admin_details")
 public class AdminDetails {
 
     @Id
@@ -17,11 +17,11 @@ public class AdminDetails {
     private String adminEmailid;
 
     @Column(name = "admin_pin")
-    private int adminPin;
+    private String adminPin;
 
     public AdminDetails() {}
 
-    public AdminDetails(int adminId, String adminEmailid, int adminPin) {
+    public AdminDetails(int adminId, String adminEmailid, String adminPin) {
         this.adminId = adminId;
         this.adminEmailid = adminEmailid;
         this.adminPin = adminPin;
@@ -43,11 +43,11 @@ public class AdminDetails {
         this.adminEmailid = adminEmailid;
     }
 
-    public int getAdminPin() {
+    public String getAdminPin() {
         return adminPin;
     }
 
-    public void setAdminPin(int adminPin) {
+    public void setAdminPin(String adminPin) {
         this.adminPin = adminPin;
     }
 }

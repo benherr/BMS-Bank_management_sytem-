@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { bankApi } from '../api/bankApi';
 import TransactionModal from '../components/TransactionModal';
-import { LogOut, RefreshCw, PlusCircle, MinusCircle, Wallet, History } from 'lucide-react';
+import { LogOut, RefreshCw, PlusCircle, MinusCircle, Wallet, History, Send } from 'lucide-react';
 import './DashboardPage.css';
 
 const DashboardPage = ({ user, onLogout }) => {
   const [balance, setBalance] = useState(0);
   const [statement, setStatement] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [modalType, setModalType] = useState(null); // 'credit' or 'debit'
+  const [modalType, setModalType] = useState(null); // 'credit' or 'debit' or 'transfer'
 
   const fetchDashboardData = async () => {
     setLoading(true);
@@ -62,6 +62,9 @@ const DashboardPage = ({ user, onLogout }) => {
             </button>
             <button className="btn btn-danger" onClick={() => setModalType('debit')}>
               <MinusCircle size={20} /> Withdraw
+            </button>
+            <button className="btn btn-primary" onClick={() => setModalType('transfer')}>
+              <Send size={20} /> Send
             </button>
           </div>
         </div>

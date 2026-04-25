@@ -37,5 +37,12 @@ export const bankApi = {
       params: { amount }
     });
     return response.data;
+  },
+
+  transfer: async (accountNumber, toAccount, amount) => {
+    const response = await axios.post(`${API_URL}/${accountNumber}/transfer`, null, {
+      params: { toAccount, amount }
+    });
+    return response.data;
   }
 };

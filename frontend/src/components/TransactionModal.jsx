@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { bankApi } from '../api/bankApi';
-import { X } from 'lucide-react';
+import { X, ArrowDownCircle, ArrowUpCircle } from 'lucide-react';
 import './TransactionModal.css';
 
-const TransactionModal = ({ type, onClose, accountNumber, onSuccess }) => {
+const TransactionModal = ({ isOpen, onClose, type, accountNo, onComplete }) => {
   const [amount, setAmount] = useState('');
+  const [toAccount, setToAccount] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  if (!isOpen) return null;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,12 +23,16 @@ const TransactionModal = ({ type, onClose, accountNumber, onSuccess }) => {
 
     try {
       if (type === 'credit') {
-        await bankApi.credit(accountNumber, amount);
-      } else {
-        await bankApi.debit(accountNumber, amount);
+        await bankApi.deposit(accountNo, parseFloat(amount));
+      } else if (type === 'debit') {
+        await bankApi.withdraw(accountNo, parseFloat(amount));
+      } else if (type === 'transfer') {
+        await bankApi.transfer(accountNo, parseInt(toAccount), parseFloat(amount));
       }
-      onSuccess(); // Refresh dashboard data
-      onClose(); // Close modal
+      onComplete();
+      onClose();
+      setAmount('');
+      setToAccount('');
     } catch (err) {
       setError(err.response?.data || 'Transaction failed.');
     } finally {
@@ -33,17 +40,34 @@ const TransactionModal = ({ type, onClose, accountNumber, onSuccess }) => {
     }
   };
 
+  const getTitle = () => {
+    if (type === 'credit') return 'Make a Deposit';
+    if (type === 'transfer') return 'Send Money';
+    return 'Make a Withdrawal';
+  };
+
   return (
     <div className="modal-overlay">
       <div className="glass-panel modal-content">
         <button className="close-btn" onClick={onClose}><X size={24}/></button>
-        <h2 className="text-gradient mb-4">
-          {type === 'credit' ? 'Deposit Funds' : 'Withdraw Funds'}
-        </h2>
+        <h2 className="text-gradient mb-4">{getTitle()}</h2>
         
         {error && <div className="error-alert">{error}</div>}
 
         <form onSubmit={handleSubmit} className="modal-form">
+          {type === 'transfer' && (
+            <div className="input-group">
+              <label>Recipient Account Number</label>
+              <input 
+                type="number" 
+                className="glass-input" 
+                placeholder="Enter account number"
+                value={toAccount}
+                onChange={(e) => setToAccount(e.target.value)}
+                required 
+              />
+            </div>
+          )}
           <div className="input-group">
             <label>Amount (₹)</label>
             <input 
