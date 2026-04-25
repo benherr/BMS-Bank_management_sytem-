@@ -1,8 +1,6 @@
 # 🏦 Nexus Bank Management System
 
-![Nexus Bank Demo](assets/demo.webp)
-
-A full-stack, secure, and beautifully designed digital banking platform. Built with a robust Spring Boot backend and a modern React frontend, this application provides a complete digital banking lifecycle including self-service registration, real-time ledger tracking, and an administrative oversight portal.
+A full-stack, secure, digital banking platform. Built with a robust Spring Boot backend and a modern React frontend, this application provides a complete digital banking lifecycle including self-service registration, real-time ledger tracking, and an administrative oversight portal.
 
 ## ✨ Features
 
