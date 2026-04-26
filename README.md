@@ -1,14 +1,36 @@
-# 🏦 Nexus Bank Management System
+<div align="center">
+  <img src="https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/landmark.svg" width="80" alt="Bank Logo" />
+  
+  # Nexus Bank Management System
+  
+  **A full-stack, secure, digital banking platform built for the modern web.**
+  
+  [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
+  [![Spring Boot](https://img.shields.io/badge/Spring_Boot-F2F4F9?style=for-the-badge&logo=spring-boot)](https://spring.io/projects/spring-boot)
+  [![MySQL](https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/)
+  [![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
+  [![Render](https://img.shields.io/badge/Render-46E3B7?style=for-the-badge&logo=render&logoColor=white)](https://render.com/)
 
-A full-stack, secure, digital banking platform. Built with a robust Spring Boot backend and a modern React frontend, this application provides a complete digital banking lifecycle including self-service registration, real-time ledger tracking, and an administrative oversight portal.
+  <h3>
+    🔴 <a href="https://nexus.benherbasheer.me">Live Demo</a> 🔴
+  </h3>
+</div>
+
+---
+
+## 📖 Overview
+
+Nexus Bank is a comprehensive digital banking solution. Built with a robust **Java Spring Boot backend** and a beautiful **React frontend**, it provides a complete banking lifecycle. Users can experience self-service registration, real-time ledger tracking, instant transfers, and an administrative oversight portal.
 
 ## ✨ Features
 
-- **Dynamic Auto-Generation:** Secure 4-digit PINs and unique Account Numbers are auto-generated and safely assigned upon registration.
-- **Full Transaction Lifecycle:** Instantly process and record deposits, withdrawals, and inter-account peer-to-peer transfers.
-- **Smart Global Ledger:** The system automatically tracks counterparty logic (`To: Account` vs `From: Account`) across a system-wide unified ledger.
-- **Secure Admin Portal:** Database-backed authentication for bank administrators to view all global transactions and the entire customer directory.
-- **Premium UI/UX:** A bespoke "Nordic Earth" design language utilizing sleek glassmorphism, fluid micro-animations, and a responsive component architecture.
+- **🔐 Auto-Generated Credentials:** Secure 4-digit PINs and unique Account Numbers are auto-generated and safely assigned upon registration.
+- **💸 Full Transaction Lifecycle:** Instantly process and record deposits, withdrawals, and inter-account peer-to-peer transfers.
+- **📊 Smart Global Ledger:** The system automatically tracks counterparty logic (`To: Account` vs `From: Account`) across a system-wide unified ledger.
+- **🛡️ Secure Admin Portal:** Database-backed authentication for bank administrators to view all global transactions and the entire customer directory.
+- **✨ Premium UI/UX:** A bespoke "Nordic Earth" design language utilizing sleek glassmorphism, fluid micro-animations, and a responsive component architecture.
+
+---
 
 ## 📸 Screenshots
 
@@ -24,31 +46,20 @@ A full-stack, secure, digital banking platform. Built with a robust Spring Boot 
 ![Admin Portal](assets/admin.png)
 *Secure administrative access to global customer and ledger data.*
 
-## 🛠️ Technology Stack
+---
 
-**Frontend:**
-- React (Vite)
-- Vanilla CSS with Glassmorphism Principles
-- Axios & Lucide-React Icons
+## 🚀 Getting Started Locally (Docker)
 
-**Backend:**
-- Java 17 / Spring Boot
-- Spring Data JPA
-- Hibernate ORM
-- MySQL Database
-
-## 🚀 Getting Started
+The easiest way to run the entire system on your own machine is using Docker Compose.
 
 ### Prerequisites
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed and running.
 
-### ⚡ Quick Start (Docker)
-The easiest way to run the entire system is using Docker Compose:
-
+### Quick Start
 1. Clone this repository.
 2. Run the following command in the project root:
    ```bash
-   docker-compose up --build
+   docker-compose up --build -d
    ```
 3. Access the applications:
    - **Frontend:** [http://localhost](http://localhost)
@@ -56,34 +67,35 @@ The easiest way to run the entire system is using Docker Compose:
 
 ---
 
-## ☁️ Cloud Deployment (Production)
+## ☁️ Cloud Deployment Architecture
 
-Follow these steps to deploy the system live on the internet.
+This project is fully "Cloud-Ready" and is actively deployed using modern PaaS providers.
 
-### 1. Database (TiDB Cloud)
-- Create a free **Starter** instance on [TiDB Cloud](https://tidb.cloud/).
-- Note your **Host**, **Port (4000)**, **Username**, and **Password**.
-- In the TiDB SQL Editor, create the database:
-  ```sql
-  CREATE DATABASE bank_management_system_db;
-  ```
+### 1. Database (Aiven MySQL)
+- MySQL database hosted on [Aiven.io](https://aiven.io/).
+- Provides a secure, scalable data layer with enforced SSL.
 
 ### 2. Backend (Render.com)
-- Deploy your code as a **Web Service** on Render.
-- Set the **Root Directory** to `Bank_Management_System`.
-- Add these **Environment Variables**:
-  - `SPRING_DATASOURCE_URL`: `jdbc:mysql://<YOUR_HOST>:4000/bank_management_system_db?useSSL=true`
-  - `SPRING_DATASOURCE_USERNAME`: `<YOUR_USERNAME>`
-  - `SPRING_DATASOURCE_PASSWORD`: `<YOUR_PASSWORD>`
+- Spring Boot REST API deployed as a Web Service on [Render](https://render.com).
+- Uses Environment Variables for database injection:
+  - `SPRING_DATASOURCE_URL` (JDBC URL with SSL enabled)
+  - `SPRING_DATASOURCE_USERNAME`
+  - `SPRING_DATASOURCE_PASSWORD`
 
-### 3. Frontend (Vercel.com)
-- Deploy the repository to Vercel.
-- Set the **Root Directory** to `frontend`.
-- Add these **Environment Variables**:
-  - `VITE_API_URL`: (Your live Render backend URL ending in `/api/customers`)
-  - `VITE_ADMIN_API_URL`: (Your live Render backend URL ending in `/api/admin`)
+### 3. Frontend (Vercel)
+- React SPA deployed globally via [Vercel](https://vercel.com).
+- Routes all API calls to the Render backend using the Environment Variable:
+  - `VITE_API_BASE_URL`
+- Utilizes `vercel.json` to handle client-side routing fallbacks gracefully.
 
 ---
 
-## 🔒 Security Note
-This project uses auto-generated PINs and secure database-backed authentication. For production use, ensure all traffic is served over HTTPS and secret keys are stored in environment variables (already configured in this repository).
+## 🔑 Demo Access / Administration
+
+To test the **Admin Dashboard** in the live demo or your local setup:
+1. Navigate to `/admin`.
+2. Login with the seeded administrator credentials:
+   - **Email:** `admin@gmail.com`
+   - **PIN:** `1234`
+
+> **Note:** The backend contains auto-seeding logic (`/api/admin/setup-admin` and `/api/admin/seed-kerala`) to instantly populate the database with mock users and transactions for demonstration purposes.
