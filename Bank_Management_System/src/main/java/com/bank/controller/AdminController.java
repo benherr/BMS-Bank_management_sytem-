@@ -42,18 +42,21 @@ public class AdminController {
         seedUser("Nithya Menen", "nithya@gmail.com", 321654987123L, "NTH3210M", 9895012345L, "Kozhikode, Kerala", "Female", "1995-02-14", 29, 6500.0);
         seedUser("Dulquer Salmaan", "dulquer@gmail.com", 654987321123L, "DLQ6543S", 9995012345L, "Thrissur, Kerala", "Male", "1990-07-28", 33, 15000.0);
         
-        return ResponseEntity.ok("Successfully deleted old data and seeded 5 Kerala users with opening deposit transactions!");
+        seedUser("Mohanlal Viswanathan", "mohanlal@gmail.com", 852963741123L, "MHL8529V", 9447112345L, "Pathanamthitta, Kerala", "Male", "1960-05-21", 63, 20000.0);
+        seedUser("Mammootty", "mammootty@gmail.com", 963852741123L, "MMT9638M", 9846112345L, "Ernakulam, Kerala", "Male", "1951-09-07", 72, 25000.0);
+        seedUser("Manju Warrier", "manju@gmail.com", 147258369123L, "MNJ1472W", 9995112345L, "Kannur, Kerala", "Female", "1978-09-10", 45, 10000.0);
+        seedUser("Prithviraj Sukumaran", "prithvi@gmail.com", 258369147123L, "PRT2583S", 9020112345L, "Thiruvananthapuram, Kerala", "Male", "1982-10-16", 41, 18000.0);
+        seedUser("Shobana Chandrakumar", "shobana@gmail.com", 369147258123L, "SHB3691S", 9895112345L, "Palakkad, Kerala", "Female", "1970-03-21", 54, 9000.0);
+        
+        return ResponseEntity.ok("Successfully deleted old data and seeded 10 Kerala users with opening deposit transactions!");
     }
 
     @GetMapping("/setup-admin")
     public ResponseEntity<String> setupAdmin() {
-        AdminDetails admin = adminRepository.findByAdminEmailidAndAdminPin("admin@bank.com", "1234");
-        if (admin == null) {
-            AdminDetails newAdmin = new AdminDetails(1, "admin@bank.com", "1234");
-            adminRepository.save(newAdmin);
-            return ResponseEntity.ok("Admin account created successfully! You can now log in with email 'admin@bank.com' and pin '1234'.");
-        }
-        return ResponseEntity.ok("Admin account already exists!");
+        adminRepository.deleteAll(); // clear existing admins to prevent ID conflicts
+        AdminDetails newAdmin = new AdminDetails(1, "admin@gmail.com", "1234");
+        adminRepository.save(newAdmin);
+        return ResponseEntity.ok("Admin account created successfully! You can now log in with email 'admin@gmail.com' and pin '1234'.");
     }
 
     private void seedUser(String name, String email, long aadhar, String pan, long mobile, String address, String gender, String dob, int age, double initialDeposit) {
