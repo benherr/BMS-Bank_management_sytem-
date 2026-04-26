@@ -97,5 +97,3 @@ To test the **Admin Dashboard** in the live demo or your local setup:
 2. Login with the seeded administrator credentials:
    - **Email:** `admin@gmail.com`
    - **PIN:** `1234`
-
-> **Note:** The backend contains auto-seeding logic (`/api/admin/setup-admin` and `/api/admin/seed-kerala`) to instantly populate the database with mock users and transactions for demonstration purposes.
