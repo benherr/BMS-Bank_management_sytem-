@@ -45,6 +45,17 @@ public class AdminController {
         return ResponseEntity.ok("Successfully deleted old data and seeded 5 Kerala users with opening deposit transactions!");
     }
 
+    @GetMapping("/setup-admin")
+    public ResponseEntity<String> setupAdmin() {
+        AdminDetails admin = adminRepository.findByAdminEmailidAndAdminPin("admin@bank.com", "1234");
+        if (admin == null) {
+            AdminDetails newAdmin = new AdminDetails(1, "admin@bank.com", "1234");
+            adminRepository.save(newAdmin);
+            return ResponseEntity.ok("Admin account created successfully! You can now log in with email 'admin@bank.com' and pin '1234'.");
+        }
+        return ResponseEntity.ok("Admin account already exists!");
+    }
+
     private void seedUser(String name, String email, long aadhar, String pan, long mobile, String address, String gender, String dob, int age, double initialDeposit) {
         CustomerDetails newCustomer = customerService.registerCustomer(
             new CustomerDetails(0, name, email, aadhar, pan, mobile, address, gender, java.sql.Date.valueOf(dob), age, 0.0, 0, 0)
